@@ -8,13 +8,16 @@ const CREATE_MODE = {
   DEFAULT: "DEFAULT"
 };
 
+const getCreateTemplatePath = (mode, target, filename) =>
+  path.resolve(__dirname, "templates", mode, target, filename);
+
 const CREATE_FORMATS_IN_TEMPLATES = {
   [CREATE_MODE.DEFAULT]: {
-    html: path.resolve(__dirname, "templates/html/index.html"),
-    css: path.resolve(__dirname, "templates/css/index.css"),
-    data: path.resolve(__dirname, "templates/json/data.json"),
-    config: path.resolve(__dirname, "templates/json/config.json"),
-    js: path.resolve(__dirname, "templates/js/index.js")
+    html: getCreateTemplatePath(CREATE_MODE.DEFAULT, "html", "index.html"),
+    css: getCreateTemplatePath(CREATE_MODE.DEFAULT, "css", "index.css"),
+    data: getCreateTemplatePath(CREATE_MODE.DEFAULT, "json", "data.json"),
+    config: getCreateTemplatePath(CREATE_MODE.DEFAULT, "json", "config.json"),
+    js: getCreateTemplatePath(CREATE_MODE.DEFAULT, "js", "index.js")
   }
 };
 
