@@ -22,7 +22,6 @@ const CREATE_FORMATS_IN_TEMPLATES = {
 };
 
 const getCreateDate = () => Math.random() * 100;
-
 //   new Date()
 //     .toISOString()
 //     .replace(/-/g, "")
