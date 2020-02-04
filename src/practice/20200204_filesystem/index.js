@@ -2,12 +2,28 @@ const fs = require("fs"); // filesystme
 const path = require("path"); // filesystme
 
 const CREATE_FOLDER_NAME = "_temp";
+const ENCODING_UTF8 = "utf-8";
 
-const getCreateDate = () =>
-  new Date()
-    .toISOString()
-    .replace(/-/g, "")
-    .split("T")[0];
+const CREATE_MODE = {
+  DEFAULT: "DEFAULT"
+};
+
+const CREATE_FORMATS_IN_TEMPLATES = {
+  [CREATE_MODE.DEFAULT]: {
+    html: path.resolve(__dirname, "templates/html/index.html"),
+    css: path.resolve(__dirname, "templates/css/index.css"),
+    data: path.resolve(__dirname, "templates/json/data.json"),
+    config: path.resolve(__dirname, "templates/json/config.json"),
+    js: path.resolve(__dirname, "templates/js/index.js")
+  }
+};
+
+const getCreateDate = () => Math.random() * 100;
+
+//   new Date()
+//     .toISOString()
+//     .replace(/-/g, "")
+//     .split("T")[0];
 
 /**
     writefilePath = path.resolve(__dirname, filename)
@@ -16,14 +32,22 @@ const getCreateDate = () =>
     fs.writeFileSync($path, content, encode)
  */
 
+// readFile
+const readFile = ($path, encodeType = ENCODING_UTF8) =>
+  fs.existsSync($path) && fs.readFileSync($path, encodeType);
+
 // get templates
 const getTemplate = $path => {
-  console.log("getTemplate", $path);
+  return readFile($path);
 };
 
 // create file
-const createFile = ($path, content) => {
-  console.log("createFile", $path, content);
+const createFile = ($path, name, content) => {
+  let filePath = path.resolve($path, name);
+  return (
+    !fs.existsSync(filePath) &&
+    fs.writeFileSync(filePath, content, ENCODING_UTF8)
+  );
 };
 
 // create folder
@@ -32,16 +56,35 @@ const createFolder = $path => {
 };
 
 // create
-const create = name => {
+const create = async (name, mode = CREATE_MODE.DEFAULT) => {
+  const createMode = CREATE_FORMATS_IN_TEMPLATES[mode];
   console.log("create");
   // create temp Folder
   const createDate = getCreateDate();
-  const tempFileName = createDate + name;
-  const tempFolderPath = path.resolve(__dirname, tempFileName);
-  createFolder(tempFolderPath);
-  // create folder in temp
-  const imageFolderName = path.resolve(tempFolderPath, "images");
-  createFolder(imageFolderName);
+  const rootFileName = createDate + name;
+  const rootFolderPath = path.resolve(__dirname, rootFileName);
+  await createFolder(rootFolderPath);
+  // create index.html
+  await createFile(rootFolderPath, "index.html", getTemplate(createMode.html));
+  // create index.css
+  await createFile(rootFolderPath, "index.css", getTemplate(createMode.css));
+  // create config.json
+  await createFile(
+    rootFolderPath,
+    "config.json",
+    getTemplate(createMode.config)
+  );
+  // create data.json
+  await createFile(rootFolderPath, "data.json", getTemplate(createMode.data));
+  // create index.js
+  await createFile(rootFolderPath, "index.js", getTemplate(createMode.js));
+
+  // create imgages folder in temp
+  const imageFolderPath = path.resolve(rootFolderPath, "images");
+  await createFolder(imageFolderPath);
+  await createFile(imageFolderPath, "a.png");
+  await createFile(imageFolderPath, "b.png");
+  console.log("create done");
 };
 
 // 실행부
