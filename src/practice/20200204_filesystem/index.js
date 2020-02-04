@@ -10,7 +10,7 @@ const getCreateDate = () =>
     .split("T")[0];
 
 /**
-     writefilePath = path.resolve(__dirname, filename)
+    writefilePath = path.resolve(__dirname, filename)
     fs.existsSync(path)
     fs.mkdirSync(path)
     fs.writeFileSync($path, content, encode)
@@ -39,6 +39,9 @@ const create = name => {
   const tempFileName = createDate + name;
   const tempFolderPath = path.resolve(__dirname, tempFileName);
   createFolder(tempFolderPath);
+  // create folder in temp
+  const imageFolderName = path.resolve(tempFolderPath, "images");
+  createFolder(imageFolderName);
 };
 
 // 실행부
