@@ -75,13 +75,6 @@ const getCreateDate = () => Math.random() * 100;
 //     .replace(/-/g, "")
 //     .split("T")[0];
 
-/**
-    writefilePath = path.resolve(__dirname, filename)
-    fs.existsSync(path)
-    fs.mkdirSync(path)
-    fs.writeFileSync($path, content, encode)
- */
-
 // create file
 const createFile = ($path, name, content) => {
   let filePath = path.resolve($path, name);
@@ -133,13 +126,13 @@ const create = async (
   type = "pc",
   jsModule = "common"
 ) => {
+  console.log("create", mode);
   const createMode = CREATE_FORMATS_IN_TEMPLATES[mode];
-  console.log("create", mode, mode !== "default");
+
   // create temp Folder
   const createDate = getCreateDate();
   const rootFileName = createDate + name;
   const rootFolderPath = path.resolve(__dirname, rootFileName);
-
   if (mode === "default") {
     await createFileUnitDefaultMode(rootFolderPath, createMode);
   } else {
