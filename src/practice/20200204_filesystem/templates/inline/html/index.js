@@ -1,3 +1,4 @@
+const createHtml = (css, script) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link type="text/css" rel="stylesheet" src="./index.css">
+  <style>
+    ${css}
+  </style>
 </head>
 <body>
   <div>
       <h1>WELLCOME</h1>  
-  <script type="text/javascript" src="./index.js"></script>
+  <script type="text/javascript">
+    ${script}
+  </script>
 </body>
-</html>
+</html>`;
+
+module.exports.createHtml = createHtml;
