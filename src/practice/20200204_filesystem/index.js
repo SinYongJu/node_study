@@ -1,6 +1,8 @@
 const fs = require("fs"); // filesystme
 const path = require("path"); // filesystme
 
+const CREATE_FOLDER_NAME = "_temp";
+
 const getCreateDate = () =>
   new Date()
     .toISOString()
@@ -30,14 +32,14 @@ const createFolder = $path => {
 };
 
 // create
-const create = () => {
+const create = name => {
   console.log("create");
   // create temp Folder
   const createDate = getCreateDate();
-  const tempFileName = createDate + "_temp";
+  const tempFileName = createDate + name;
   const tempFolderPath = path.resolve(__dirname, tempFileName);
   createFolder(tempFolderPath);
 };
 
 // 실행부
-create();
+create(CREATE_FOLDER_NAME);
