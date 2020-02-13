@@ -26,6 +26,8 @@
 
     과제: 환경 구성 하기 
 
+3. node server
+
 
 
 ## 이슈트래킹# node_study
