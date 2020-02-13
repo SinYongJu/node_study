@@ -122,7 +122,7 @@ const createFileUnitInlineMode = async (
 // create
 const create = async (
   name,
-  mode = CREATE_MODE.INLINE,
+  mode = CREATE_MODE.DEFAULT,
   type = "pc",
   jsModule = "common"
 ) => {
@@ -149,3 +149,16 @@ const create = async (
 
 // 실행부
 create(CREATE_FOLDER_NAME, argMode, argType, argJsModule);
+
+/**
+ *
+ * 1. 근본적 원인 : 기능별 구현
+ * 2. 사용성에 따른 구현
+ *
+ * 목표 :
+ * code 정리,
+ * 책임 위주 분리,
+ * 도메인 별로 책임 분할을 목표로
+ *
+ * 확장성에 대한 고민
+ */
